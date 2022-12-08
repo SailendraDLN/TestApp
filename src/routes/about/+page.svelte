@@ -1,29 +1,42 @@
-<script>
+<script lang="ts">
   import { supabase } from "../../supabase.js";
 
-  let pushups;
-  let pullups;
-  let newdata;
+  interface Packet {
+    pushups: number;
+    pullups: number;
+    squats: number;
+    shoulder_crunches: number;
+  }
+
+  let sampleObj:Packet = {
+	  pushups: 6,
+	  pullups: 7,
+	  squats: 9,
+	  shoulder_crunches: 10
+  }
 
   async function sendData(){
     const { data, error } = await supabase
-    .from('exercise_master')
+    .from('exercises')
     .insert([
-      { pushup_count: pushups, pullup_count: pullups },
+      {...sampleObj},
     ])
-
-    console.log(data)
-  }
-
-  async function getData(){
-    const { data, error } = await supabase
-    .from('exercise_master')
-    .select('*')
-    if(data){
-      newdata = data
+    if(error){
+      console.error(error)
+    } else {
+      console.log(data)
     }
-    console.log(data)
   }
+
+  // async function getData(){
+  //   const { data, error } = await supabase
+  //   .from('exercise_master')
+  //   .select('*')
+  //   if(data){
+  //     newdata = data
+  //   }
+  //   console.log(data)
+  // }
 
 
 </script>
@@ -67,13 +80,13 @@
 </nav>
 
 <h1>Enter your exercise data</h1>
-<input type="number" bind:value={pushups} placeholder="enter pushups" class="input-bar">
-<input type="number" bind:value={pullups} placeholder="enter pullups" class="input-bar">
+<!-- <input type="number" bind:value={pushups} placeholder="enter pushups" class="input-bar">
+<input type="number" bind:value={pullups} placeholder="enter pullups" class="input-bar"> -->
 
 <button on:click={sendData} class="button">Push data to server</button>
-<button on:click={getData} class="button">Pull latest data</button>
+<!-- <button on:click={getData} class="button">Pull latest data</button> -->
 
-{#if newdata}
+<!-- {#if newdata}
   {#each newdata as item}
     <div class="box">
       <pre>pushups : {item.pushup_count}</pre>
@@ -82,4 +95,4 @@
       <pre>Power Level = {(item.pushup_count * item.pullup_count).toString()}</pre>
     </div>
   {/each}
-{/if}
+{/if} -->
