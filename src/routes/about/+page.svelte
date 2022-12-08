@@ -67,8 +67,8 @@
 </nav>
 
 <h1>Enter your exercise data</h1>
-<input type="number" bind:value={pushups} placeholder="pushpa" class="input-bar">
-<input type="number" bind:value={pullups} placeholder="the rise" class="input-bar">
+<input type="number" bind:value={pushups} placeholder="enter pushups" class="input-bar">
+<input type="number" bind:value={pullups} placeholder="enter pullups" class="input-bar">
 
 <button on:click={sendData} class="button">Push data to server</button>
 <button on:click={getData} class="button">Pull latest data</button>
